@@ -26,8 +26,8 @@ steps:
     SonarCloud: 'SonarCloud'
     organization: 'norikade'
     scannerMode: 'MSBuild'
-    projectKey: 'NorikaDE_MsBuild-Parser'
-    projectName: 'MsBuild-Parser'
+    projectKey: 'NorikaDE_PlugInLoader'
+    projectName: 'PlugInLoader'
 
 - task: NuGetCommand@2
   displayName: Restoring NuGet Packages

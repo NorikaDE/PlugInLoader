@@ -14,7 +14,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   runSettings: 'Settings/UnitTest.runsettings'
-  rootNameSpace: 'Norika.MsBuild'
+  rootNameSpace: 'Norika.PlugInLoader'
   packgeVersion: "0.1.1-alpha$(Build.BuildNumber)"
 
 steps:

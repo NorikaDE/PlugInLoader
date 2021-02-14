@@ -1,8 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+    <Import Project="$(MsBuildThisFileDirectory)\..\..\Build\NuGet\Versioning.props" />
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <LangVersion>9</LangVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <Title>PlugIn Loader</Title>
+        <PackageDescription>This class provides basic functionality for loading plug ins dynamically into the app domain.</PackageDescription>
+        <Description>This class provides basic functionality for loading plug ins dynamically into the app domain.</Description>
     </PropertyGroup>
 
     <ItemGroup>

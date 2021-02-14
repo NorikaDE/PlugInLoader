@@ -1,7 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+    <Import Project="$(MsBuildThisFileDirectory)\..\..\Build\NuGet\Versioning.props" />
+    
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>PlugIn Loader Abstractions</Title>
+        <PackageDescription>This class provides basic functionality for loading plug ins dynamically into the app domain.</PackageDescription>
+        <Description>This class provides basic functionality for loading plug ins dynamically into the app domain.</Description>
     </PropertyGroup>
 
 </Project>

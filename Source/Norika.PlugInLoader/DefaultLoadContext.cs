@@ -7,7 +7,7 @@ namespace Norika.PlugInLoader
 {
     internal class DefaultLoadContext : ILoadContext
     {
-        private MetadataLoadContext _loadContext;
+        private readonly MetadataLoadContext _loadContext;
 
         public DefaultLoadContext(MetadataLoadContext metadataLoadContext)
         {

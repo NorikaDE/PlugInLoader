@@ -6,7 +6,7 @@ A simple .NET plugin loader for dynamically loading extension to the current app
 ```cs
  IPlugInLoader loader = new PlugInLoader();
 
-var plugInCollection = loader.FromDirectory(".\")
+var plugInCollection = loader.FromDirectory(".\\")
     .Where(c 
         => c.MatchesName("Norika.*Samples.dll"))
     .LookUp();

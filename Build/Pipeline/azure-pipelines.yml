@@ -12,7 +12,8 @@ trigger:
     exclude:
     - Build/*
     - Settings/*
-
+    - Readme.md
+    - .gitignore
 
 pool:
   vmImage: 'windows-latest'

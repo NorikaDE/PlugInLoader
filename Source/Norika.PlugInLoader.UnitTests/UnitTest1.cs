@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.AutoMock;
 using Norika.PlugInLoader.Abstractions;
 
 namespace Norika.PlugInLoader.UnitTests
@@ -20,6 +22,20 @@ namespace Norika.PlugInLoader.UnitTests
             {
                 demoPlugIn.Bla();
             }
+        }
+
+        [TestMethod]
+        public void dev()
+        {
+            AutoMocker autoMocker = new AutoMocker();
+            
+            var sut = autoMocker.CreateInstance<DefaultPlugInFactory>();
+
+            Mock<IAssemblyMetadata> assemblyMetadata = new Mock<IAssemblyMetadata>();
+            
+            IPlugIn plugIn = sut.CreatePlugIn(assemblyMetadata.Object);
+            
+            Assert.IsNotNull(plugIn);
         }
     }
 }

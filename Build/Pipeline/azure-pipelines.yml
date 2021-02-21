@@ -76,7 +76,7 @@ steps:
   inputs:
     command: test
     projects: '**/*UnitTests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --settings "$(runSettings)"'
+    arguments: '--configuration $(buildConfiguration) --Filter "TestCategory=CheckIn" --collect "Code coverage" --settings "$(runSettings)"'
 
 - task: SonarCloudAnalyze@1
 

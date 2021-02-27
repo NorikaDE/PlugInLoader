@@ -15,11 +15,11 @@ namespace Norika.PlugInLoader.Matcher
         public bool VerifyMatches(IAssemblyMetadata assembly)
         {
             byte[] assemblyPublicKey = assembly.GetPublicKey();
-            if (assemblyPublicKey == null)
+            if (assemblyPublicKey == null || _publicKey == null)
             {
                 return false;
             }
-            return assemblyPublicKey == Encoding.Unicode.GetBytes(_publicKey);
+            return Encoding.Unicode.GetString(assemblyPublicKey) == _publicKey;
         }
     }
 }

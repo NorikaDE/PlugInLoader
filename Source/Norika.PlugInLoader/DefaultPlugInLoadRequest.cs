@@ -26,7 +26,7 @@ namespace Norika.PlugInLoader
             _assemblyFileInfoCollection = assemblies;
             _matcher = new List<IPlugInMatcher>();
             _loadConfiguration = new DefaultPlugInLoadConfiguration();
-            _loadContextFactory = new DefaultLoadContextFactory();
+            _loadContextFactory = new DefaultLoadContextFactory(fileSystem);
             _plugInFactory = new DefaultPlugInFactory();
         }
 
@@ -83,9 +83,6 @@ namespace Norika.PlugInLoader
         private List<string> BuildUpPaths(ICollection<IFileInfo> matchingAssemblies)
         {
             var paths = matchingAssemblies.Select(fi => fi.FullName).ToList();
-            
-            paths.AddRange(
-                _fileSystem.Directory.GetFiles(RuntimeEnvironment.GetRuntimeDirectory(), "*.dll"));
             paths.Add(typeof(PlugInAssemblyAttribute).Assembly.Location);
             return paths;
         }

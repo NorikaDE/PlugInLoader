@@ -9,6 +9,7 @@ namespace Norika.PlugInLoader.UnitTests
     public class UnitTest1
     {
         [TestMethod]
+        [TestCategory("CheckIn")]
         public void TestMethod1()
         {
             IPlugInLoader loader = new PlugInLoader();

@@ -4,17 +4,25 @@ using System.Linq;
 using System.Reflection;
 using Norika.PlugInLoader.Abstractions;
 using Norika.PlugInLoader.Interfaces;
+using Norika.PlugInLoader.Internals;
 
 namespace Norika.PlugInLoader
 {
     internal class DefaultPlugInFactory : IPlugInFactory
     {
+        private readonly IActivator _activator;
+
+        public DefaultPlugInFactory(IActivator activator)
+        {
+            _activator = activator;
+        }
+
         public IPlugIn CreatePlugIn(IAssemblyMetadata assemblyMetadata)
         {
             return new DefaultPlugIn(assemblyMetadata, GetAttribute<PlugInAssemblyAttribute>(assemblyMetadata));
         }
         
-        private static T GetAttribute<T>(IAssemblyMetadata assembly) where T : Attribute
+        private T GetAttribute<T>(IAssemblyMetadata assembly) where T : Attribute
         {
             ICollection<CustomAttributeData> customAttributeDataList = assembly.GetCustomAttributeData();
 
@@ -23,7 +31,7 @@ namespace Norika.PlugInLoader
 
             var constructorArguments = attributeData.ConstructorArguments
                 .Select(c => c.Value).ToArray();
-            return Activator.CreateInstance(typeof(T), constructorArguments) as T;
+            return _activator.CreateInstance<T>(constructorArguments);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -66,16 +67,25 @@ namespace Norika.PlugInLoader.UnitTests.Matcher
         }
         
         private DefaultAssemblyAttributePlugInMatcher<MyTypeAttribute> matcher;
-        
-        private class MyTypeAttribute : Attribute { }
-        private class CustomAttributeDataStub : CustomAttributeData
+    }
+    
+    internal class MyTypeAttribute : Attribute { }
+    internal class CustomAttributeDataStub : CustomAttributeData
+    {
+        internal CustomAttributeDataStub(Type attributeType)
         {
-            internal CustomAttributeDataStub(Type attributeType)
-            {
-                AttributeType = attributeType;
-            }
-            
-            public override Type AttributeType { get; }
+            AttributeType = attributeType;
+            ConstructorArguments = new List<CustomAttributeTypedArgument>();
         }
+
+        internal CustomAttributeData WithConstructorArgumentType(Type argumentType, object value)
+        {
+            ConstructorArguments.Add(new CustomAttributeTypedArgument(argumentType, value));
+            return this;
+        }
+            
+        public override Type AttributeType { get; }
+
+        public override IList<CustomAttributeTypedArgument> ConstructorArguments { get; }
     }
 }

@@ -9,11 +9,16 @@ namespace Norika.PlugInLoader.Factories
 {
     internal class DefaultLoadContextFactory : ILoadContextFactory
     {
+        private readonly MetadataLoadContextFactory _metadataLoadContextFactory;
         private readonly IFileSystem _fileSystem;
 
-        internal DefaultLoadContextFactory(IFileSystem fileSystem)
+        internal DefaultLoadContextFactory(IFileSystem fileSystem) : this(fileSystem, new MetadataLoadContextFactory())
+        { }
+
+        internal DefaultLoadContextFactory(IFileSystem fileSystem, MetadataLoadContextFactory metadataLoadContextFactory)
         {
             _fileSystem = fileSystem;
+            _metadataLoadContextFactory = metadataLoadContextFactory;
         }
         
         public ILoadContext CreateLoadContext(IList<string> assemblies)
@@ -21,11 +26,9 @@ namespace Norika.PlugInLoader.Factories
             return new DefaultLoadContext(CreateResolver(AddCorePaths(assemblies)));
         }
         
-        private static MetadataLoadContext CreateResolver(IList<string> paths)
+        private MetadataLoadContext CreateResolver(IList<string> paths)
         {
-            PathAssemblyResolver pathResolver = new PathAssemblyResolver(paths);
-            MetadataLoadContext loadContext = new MetadataLoadContext(pathResolver);
-            return loadContext;
+            return _metadataLoadContextFactory.CreateMetadataLoadContext(paths);
         }
 
         private IList<string> AddCorePaths(IList<string> paths)

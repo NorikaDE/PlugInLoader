@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Norika.PlugInLoader.Abstractions;
+using Norika.PlugInLoader.Internals;
 
 namespace Norika.PlugInLoader
 {
     public class DefaultPlugIn : IPlugIn
     {
         private readonly IAssemblyMetadata _loadAssembly;
+        private readonly IActivator _activator;
 
-        public DefaultPlugIn(IAssemblyMetadata loadAssembly, PlugInAssemblyAttribute attribute)
+        internal DefaultPlugIn(IAssemblyMetadata loadAssembly, PlugInAssemblyAttribute attribute)
         {
             _loadAssembly = loadAssembly;
+            Name = attribute.Name;
+            _activator = new ActivatorWrapper();
+        }
+        
+        internal DefaultPlugIn(IAssemblyMetadata loadAssembly, IActivator activator, PlugInAssemblyAttribute attribute)
+        {
+            _loadAssembly = loadAssembly;
+            _activator = activator;
             Name = attribute.Name;
         }
 
@@ -37,7 +47,7 @@ namespace Norika.PlugInLoader
             {
                 throw new Exception();
             }
-            return Activator.CreateInstance(targetType) as T;
+            return _activator.CreateInstance(targetType) as T;
         }
         
         public IList<T> LoadMultiple<T>() where T : class
@@ -54,7 +64,7 @@ namespace Norika.PlugInLoader
             {
                 throw new Exception();
             }
-            return targetTypes.Select(foundType => Activator.CreateInstance(foundType) as T).ToList();
+            return targetTypes.Select(foundType => _activator.CreateInstance(foundType) as T).ToList();
         }
     }
 }

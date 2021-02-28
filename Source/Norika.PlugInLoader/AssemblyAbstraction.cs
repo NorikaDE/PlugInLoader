@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Norika.PlugInLoader.Abstractions;
 
 namespace Norika.PlugInLoader
 {
+    [ExcludeFromCodeCoverage]
     internal class AssemblyAbstraction : IAssemblyMetadata
     {
         private readonly Assembly _assembly;

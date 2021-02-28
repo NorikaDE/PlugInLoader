@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using Norika.PlugInLoader.Abstractions;
 using Norika.PlugInLoader.Factories;
 using Norika.PlugInLoader.Interfaces;
+using Norika.PlugInLoader.Internals;
 using Norika.PlugInLoader.Matcher;
 
 namespace Norika.PlugInLoader
@@ -27,7 +28,7 @@ namespace Norika.PlugInLoader
             _matcher = new List<IPlugInMatcher>();
             _loadConfiguration = new DefaultPlugInLoadConfiguration();
             _loadContextFactory = new DefaultLoadContextFactory(fileSystem);
-            _plugInFactory = new DefaultPlugInFactory();
+            _plugInFactory = new DefaultPlugInFactory(new ActivatorWrapper());
         }
 
         public IPlugInLoadRequest Where(Action<IPlugInLoadConfiguration> configuration)
